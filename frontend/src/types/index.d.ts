@@ -7,6 +7,7 @@ export interface OutletContext {
 }
 
 export interface NftMetadata {
+  tokenId?: number;
   name: string;
   image: string;
   description: string;
@@ -15,3 +16,7 @@ export interface NftMetadata {
     value: string;
   }[];
 }
+
+// export interface NftMetadataTokenId extends NftMetadata {
+//   tokenId: number;
+// }
