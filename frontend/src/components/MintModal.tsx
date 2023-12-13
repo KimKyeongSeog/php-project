@@ -5,23 +5,31 @@ import { NftMetadata, OutletContext } from "../types";
 
 interface MintModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  metadataArray: NftMetadata[];
+  setMetadataArray: Dispatch<SetStateAction<NftMetadata[]>>;
 }
 
-const MintModal: FC<MintModalProps> = ({ setIsOpen }) => {
+const MintModal: FC<MintModalProps> = ({
+  setIsOpen,
+  metadataArray,
+  setMetadataArray
+}) => {
   const [metadata, setMetadata] = useState<NftMetadata>();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  //로딩 중
   const { mintNftContract, account } = useOutletContext<OutletContext>();
 
   const onClickMint = async () => {
     try {
       if (!mintNftContract || !account) return;
 
+      setIsLoading(true);
+
       await mintNftContract.methods.mintNFT().send({ from: account });
 
-      const balance = await mintNftContract.methods
-        // @ts-expect-error
-        .balanceOf(account)
-        .call();
+      // @ts-expect-error
+      const balance = await mintNftContract.methods.balanceOf(account).call();
 
       const tokenId = await mintNftContract.methods
         // @ts-expect-error
@@ -36,11 +44,13 @@ const MintModal: FC<MintModalProps> = ({ setIsOpen }) => {
       const response = await axios.get(metadataURI);
 
       setMetadata(response.data);
+      setMetadataArray([response.data, ...metadataArray]);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
     }
   };
-
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
       <div className="p-8 bg-white rounded-xl">
@@ -64,7 +74,7 @@ const MintModal: FC<MintModalProps> = ({ setIsOpen }) => {
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <div>NFT를 민팅하시겠습니까?</div>
+            <div>{isLoading ? "Loading..." : "NFT를 민팅하시겠습니까?"}</div>
             <div className="border-orange-500 border-4 rounded-2xl text-center mt-4 w-16 ">
               <button onClick={onClickMint}>Agree</button>
             </div>
