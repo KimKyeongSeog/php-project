@@ -6,7 +6,7 @@ interface HeaderProps {
   account: string;
   setAccount: Dispatch<SetStateAction<string>>;
 }
-
+//프롭스를 받은 컴포넌트에 작성, 인터페이스를 통해 객체를 지정
 const Header: FC<HeaderProps> = ({ account, setAccount }) => {
   const { sdk } = useSDK();
 

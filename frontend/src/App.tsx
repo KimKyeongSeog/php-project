@@ -20,3 +20,5 @@ const App: FC = () => {
 };
 
 export default App;
+
+//디자인은 각자 반영 후 각 페이지에 적용 및 분위기설정
