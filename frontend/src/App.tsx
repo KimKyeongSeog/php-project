@@ -24,3 +24,10 @@ const App: FC = () => {
 export default App;
 
 //디자인은 각자 반영 후 각 페이지에 적용 및 분위기설정
+
+// detail.tsx useParams
+
+// - 디테일 페이지 주소의 숫자를 읽어내기 위함
+// app.tsx의 tokenId를 사용 >
+
+//  const { tokenId } = useParams();로 꺼내와서 사용

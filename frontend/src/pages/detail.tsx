@@ -34,7 +34,7 @@ const Detail: FC = () => {
   }, [mintNftContract]);
 
   return (
-    <div className="relative grow bg-green-100 flex justify-center items-center">
+    <div className="relative grow flex justify-center items-center">
       <button
         className="absolute top-8 left-8 hover:text-gray-500"
         onClick={() => navigate(-1)}
