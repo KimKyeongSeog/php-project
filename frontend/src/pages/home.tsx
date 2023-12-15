@@ -56,7 +56,7 @@ const Home: FC = () => {
 
           const response = await axios.get(metadataURI);
 
-          temp.push({ ...response.data, tokenId: searchTokenId });
+          temp.push({ ...response.data, tokenId: searchTokenId - i });
         }
       }
       // 6 - 6 = 0
@@ -107,3 +107,4 @@ const Home: FC = () => {
 export default Home;
 
 // 갯수를 조회 => 이전에 searchTokenId로 설정되어있어 총량과 조회량이 동일하여 무한로딩이 발생하는 현상이 있었음.
+//
